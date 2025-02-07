@@ -20,7 +20,7 @@ TWILIO_ACCOUNT_SID = 'ACd1eff7ab490404a25f11cd151c53e87a'
 TWILIO_AUTH_TOKEN = 'd13a17ef7084d7f630aab41be97634bd'
 PHONE_NUMBER_FROM = '+18482929065'
 OPENAI_API_KEY = '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'
-raw_domain = 'https://339b-2401-4900-7c60-1006-3c4e-cff4-1752-e662.ngrok-free.app'
+raw_domain = 'https://c9db-2401-4900-7c60-1006-c585-ce53-9848-5d81.ngrok-free.app'
 DOMAIN = re.sub(r'(^\w+:|^)\/\/|\/+$', '', raw_domain) # Strip protocols and trailing slashes from DOMAIN
 
 PORT = int("6060")
@@ -77,20 +77,7 @@ RIDER_DETAILS = {
     "rating": "4.8"
 }
 
-# ROUTE_DETAILS = {
-#     "pickup_point": "Restaurant XYZ, 789 Pine St, Anytown, ST 12345",
-#     "pickup_coordinates": {"lat": "40.7120", "lng": "-74.0050"},
-#     "delivery_point": ORDER_DETAILS["delivery_address"],
-#     "delivery_coordinates": {"lat": "40.7140", "lng": "-74.0070"},
-#     "estimated_distance": "2.5 km",
-#     "estimated_time": "15 minutes",
-#     "waypoints": [
-#         "Take right from Pine St",
-#         "Continue on Oak Avenue",
-#         "Left turn onto Main St",
-#         "Destination will be on your right"
-#     ]
-# }
+
 
 FAQS = {"delivery_time": {
                 "question": "What are the typical delivery times?",
@@ -361,7 +348,7 @@ if __name__ == "__main__":
     print(waypoints)
 
     parser = argparse.ArgumentParser(description="Run the Twilio AI voice assistant server.")
-    parser.add_argument('--call', required=True, help="The phone number to call, e.g., '--call=+18005551212'")
+    parser.add_argument('--call', required=False, help="The phone number to call, e.g., '--call=+18005551212'")
     args = parser.parse_args()
 
     phone_number = args.call
