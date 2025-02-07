@@ -1,0 +1,36 @@
+{
+    "ORDER_DETAILS" : {
+    "order_id": "ORD123456",
+    "customer_name": "John Smith",
+    "delivery_address": "123 Main St, Anytown, ST 12345",
+    "items": [
+        {"name": "Chicken Burger", "quantity": 2, "special_instructions": "No mayo"},
+        {"name": "French Fries", "quantity": 1, "special_instructions": "Extra crispy"}
+    ],
+    "order_status": "In Transit",
+    "estimated_delivery": "2:30 PM"
+},
+
+"RIDER_DETAILS" : {
+    "name": "Navjyot",
+    "current_location": "456 Oak Avenue, Anytown, ST 12345",
+    "current_coordinates": {"lat": "40.7128", "lng": "-74.0060"},
+    "vehicle": "Honda Activa",
+    "rating": "4.8"
+},
+
+"ROUTE_DETAILS" : {
+    "pickup_point": "Restaurant XYZ, 789 Pine St, Anytown, ST 12345",
+    "pickup_coordinates": {"lat": "40.7120", "lng": "-74.0050"},
+    "delivery_point":"123 Main St, Anytown, ST 12345",
+    "delivery_coordinates": {"lat": "40.7140", "lng": "-74.0070"},
+    "estimated_distance": "2.5 km",
+    "estimated_time": "15 minutes",
+    "waypoints": [
+        "Take right from Pine St",
+        "Continue on Oak Avenue",
+        "Left turn onto Main St",
+        "Destination will be on your right"
+    ]
+}
+}
