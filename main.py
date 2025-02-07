@@ -11,6 +11,7 @@ import websockets.client
 from dotenv import load_dotenv
 import uvicorn
 import re
+from maps_test import get_directions, get_waypoints
 
 load_dotenv()
 
@@ -26,11 +27,40 @@ PORT = int("6060")
 
 
 
+origin_lat, origin_lng = 18.517500125498525, 73.87937093008591  # Chicago, IL
+dest_lat, dest_lng = 18.607221238680346, 73.87507577543245  # New York, NY
+
+api_key = "AIzaSyBJPodhXJS9puryhC-trj7sRGeyX77a0M0"  # Fetch API key from environment
+
+if not api_key:
+    raise Exception("API key is missing. Set 'GOOGLE_MAPS_API_KEY' in your environment.")
+
+
+details = get_directions(origin_lat, origin_lng, dest_lat, dest_lng, api_key)
+waypoints = get_waypoints(api_key, f"{origin_lat},{origin_lng}", f"{dest_lat},{dest_lng}")
+
+
+
+ROUTE_DETAILS = {
+    "pickup_point": "George Restaurant",
+    "pickup_coordinates": {"lat": origin_lat, "lng": origin_lng},
+    "delivery_point": "Army Institute of Technology",
+    "delivery_coordinates": {"lat": dest_lat, "lng": dest_lng},
+    "estimated_distance": details['distance'],
+    "estimated_time": details['duration'],
+    "waypoints": waypoints
+
+}
+
+
+
+
+
 # Demo data structures for order, location and FAQs
 ORDER_DETAILS = {
     "order_id": "ORD123456",
     "customer_name": "John Smith",
-    "delivery_address": "123 Main St, Anytown, ST 12345",
+    "delivery_address": "Army Institute of Technology",
     "items": [
         {"name": "Chicken Burger", "quantity": 2, "special_instructions": "No mayo"},
         {"name": "French Fries", "quantity": 1, "special_instructions": "Extra crispy"}
@@ -41,26 +71,26 @@ ORDER_DETAILS = {
 
 RIDER_DETAILS = {
     "name": "Navjyot",
-    "current_location": "456 Oak Avenue, Anytown, ST 12345",
-    "current_coordinates": {"lat": "40.7128", "lng": "-74.0060"},
+    "current_location": "25 m from Phulenagar Road",
+    "current_coordinates": {"lat": "18.558960989275096", "lng": "73.87637456072176"},
     "vehicle": "Honda Activa",
     "rating": "4.8"
 }
 
-ROUTE_DETAILS = {
-    "pickup_point": "Restaurant XYZ, 789 Pine St, Anytown, ST 12345",
-    "pickup_coordinates": {"lat": "40.7120", "lng": "-74.0050"},
-    "delivery_point": ORDER_DETAILS["delivery_address"],
-    "delivery_coordinates": {"lat": "40.7140", "lng": "-74.0070"},
-    "estimated_distance": "2.5 km",
-    "estimated_time": "15 minutes",
-    "waypoints": [
-        "Take right from Pine St",
-        "Continue on Oak Avenue",
-        "Left turn onto Main St",
-        "Destination will be on your right"
-    ]
-}
+# ROUTE_DETAILS = {
+#     "pickup_point": "Restaurant XYZ, 789 Pine St, Anytown, ST 12345",
+#     "pickup_coordinates": {"lat": "40.7120", "lng": "-74.0050"},
+#     "delivery_point": ORDER_DETAILS["delivery_address"],
+#     "delivery_coordinates": {"lat": "40.7140", "lng": "-74.0070"},
+#     "estimated_distance": "2.5 km",
+#     "estimated_time": "15 minutes",
+#     "waypoints": [
+#         "Take right from Pine St",
+#         "Continue on Oak Avenue",
+#         "Left turn onto Main St",
+#         "Destination will be on your right"
+#     ]
+# }
 
 FAQS = {"delivery_time": {
                 "question": "What are the typical delivery times?",
@@ -120,6 +150,8 @@ RIDER DETAILS:
 - Vehicle: {RIDER_DETAILS['vehicle']}
 - Rating: {RIDER_DETAILS['rating']}
 
+Given the waypoints in route information, when asked about rider location, I want you to get the nearest waypoint from the rider's current location by comparing it with the coordinates given in waypoints.
+
 ROUTE INFORMATION:
 - Pickup Point: {ROUTE_DETAILS['pickup_point']}
 - Delivery Point: {ROUTE_DETAILS['delivery_point']}
@@ -128,6 +160,7 @@ ROUTE INFORMATION:
 - Current Route:
   {' → '.join(ROUTE_DETAILS['waypoints'])}
 
+
 You can answer common questions about:
 {chr(10).join([f"- {question}: {answer}" for question, answer in zip(FAQS.keys(), FAQS.values()) if not question.startswith('answer')])}
 
@@ -135,8 +168,6 @@ Please provide accurate and helpful information based on these details. If asked
 remind the customer that these details are current as of the last update. For any questions about 
 modifying orders or specific issues, direct customers to customer support while remaining helpful 
 and empathetic.'''
-
-
 
 
 
@@ -325,6 +356,10 @@ async def handle_media_stream(websocket: WebSocket):
 
 
 if __name__ == "__main__":
+    details = get_directions(origin_lat, origin_lng, dest_lat, dest_lng, api_key)
+    waypoints = get_waypoints(api_key, f"{origin_lat},{origin_lng}", f"{dest_lat},{dest_lng}")
+    print(waypoints)
+
     parser = argparse.ArgumentParser(description="Run the Twilio AI voice assistant server.")
     parser.add_argument('--call', required=True, help="The phone number to call, e.g., '--call=+18005551212'")
     args = parser.parse_args()
