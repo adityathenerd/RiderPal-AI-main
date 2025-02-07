@@ -73,7 +73,7 @@ if __name__ == "__main__":
     origin_lat, origin_lng = 18.517500125498525, 73.87937093008591  # Chicago, IL
     dest_lat, dest_lng = 18.607221238680346, 73.87507577543245  # New York, NY
 
-    api_key = "AIzaSyBJPodhXJS9puryhC-trj7sRGeyX77a0M0"  # Fetch API key from environment
+    api_key = os.getenv('api_key')  # Fetch API key from environment
 
     if not api_key:
         raise Exception("API key is missing. Set 'GOOGLE_MAPS_API_KEY' in your environment.")
