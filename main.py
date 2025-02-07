@@ -19,7 +19,7 @@ TWILIO_ACCOUNT_SID = 'ACd1eff7ab490404a25f11cd151c53e87a'
 TWILIO_AUTH_TOKEN = 'd13a17ef7084d7f630aab41be97634bd'
 PHONE_NUMBER_FROM = '+18482929065'
 OPENAI_API_KEY = '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'
-raw_domain = 'https://a290-210-212-2-165.ngrok-free.app'
+raw_domain = 'https://339b-2401-4900-7c60-1006-3c4e-cff4-1752-e662.ngrok-free.app'
 DOMAIN = re.sub(r'(^\w+:|^)\/\/|\/+$', '', raw_domain) # Strip protocols and trailing slashes from DOMAIN
 
 PORT = int("6060")
@@ -101,7 +101,9 @@ FAQS = {"delivery_time": {
 
 # Enhanced system message using f-strings
 SYSTEM_MESSAGE = f'''You are RiderPal, an AI delivery assistant helping rider {RIDER_DETAILS['name']} with order tracking, 
-location details, and customer support for deliveries. Here are the current details:
+location details, and customer support for deliveries. Remember you are a customer facing bot, you need to take calls in place of the rider talking to the customer.
+
+ Here are the current details:
 
 ORDER INFORMATION:
 - Order ID: {ORDER_DETAILS['order_id']}
