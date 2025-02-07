@@ -16,10 +16,10 @@ from maps_test import get_directions, get_waypoints
 load_dotenv()
 
 # Configuration
-TWILIO_ACCOUNT_SID = 'ACd1eff7ab490404a25f11cd151c53e87a'
-TWILIO_AUTH_TOKEN = 'd13a17ef7084d7f630aab41be97634bd'
+TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 PHONE_NUMBER_FROM = '+18482929065'
-OPENAI_API_KEY = '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'
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 raw_domain = 'https://c9db-2401-4900-7c60-1006-c585-ce53-9848-5d81.ngrok-free.app'
 DOMAIN = re.sub(r'(^\w+:|^)\/\/|\/+$', '', raw_domain) # Strip protocols and trailing slashes from DOMAIN
 
@@ -30,7 +30,7 @@ PORT = int("6060")
 origin_lat, origin_lng = 18.517500125498525, 73.87937093008591  # Chicago, IL
 dest_lat, dest_lng = 18.607221238680346, 73.87507577543245  # New York, NY
 
-api_key = "AIzaSyBJPodhXJS9puryhC-trj7sRGeyX77a0M0"  # Fetch API key from environment
+api_key = os.getenv('api_key')  # Fetch API key from environment
 
 if not api_key:
     raise Exception("API key is missing. Set 'GOOGLE_MAPS_API_KEY' in your environment.")
